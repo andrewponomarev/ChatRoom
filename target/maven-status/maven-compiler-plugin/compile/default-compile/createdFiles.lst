@@ -1,0 +1,7 @@
+com/aaponomarev/WebSocketChatApplication.class
+com/aaponomarev/chat/MessageEncoder.class
+com/aaponomarev/chat/model/Message.class
+com/aaponomarev/chat/WebSocketChatServer.class
+com/aaponomarev/chat/MessageDecoder.class
+com/aaponomarev/chat/model/MessageType.class
+com/aaponomarev/chat/WebSocketConfig.class
