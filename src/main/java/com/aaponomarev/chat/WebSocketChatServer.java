@@ -17,10 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Component
-@ServerEndpoint(value = "/chat" ,
+@ServerEndpoint(value = "/chat",
 encoders = MessageEncoder.class,
 decoders = MessageDecoder.class)
-
 public class WebSocketChatServer {
 
     /**

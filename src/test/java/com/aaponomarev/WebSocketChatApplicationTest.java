@@ -4,15 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,8 +28,8 @@ public class WebSocketChatApplicationTest {
     @Test
     public void testLoginWithEmptyUserName() throws Exception {
         mockMvc.perform(get("/index"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/"));
+                .andExpect(status().isOk())
+                .andExpect(view().name("chat"));
     }
 
     @Test
@@ -43,6 +39,18 @@ public class WebSocketChatApplicationTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("chat"))
                 .andExpect(model().attribute("username", username));
+    }
+
+    @Test
+    public void testLeave() throws Exception {
+        String username = "user";
+        mockMvc.perform(get("/index").param("username", username))
+                .andExpect(status().isOk())
+                .andExpect(view().name("chat"))
+                .andExpect(model().attribute("username", username));
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("login"));
     }
 
 }

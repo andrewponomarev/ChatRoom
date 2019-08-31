@@ -5,9 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 @SpringBootApplication
 @RestController
@@ -30,8 +32,8 @@ public class WebSocketChatApplication {
      */
     @GetMapping("/index")
     public ModelAndView index(String username, HttpServletRequest request) throws UnknownHostException {
-        if (username == null || username.isEmpty()) {
-            return new ModelAndView("redirect:/");
+        if (StringUtils.isEmpty(username)) {
+            username = "user-" + new Random().nextInt(10000);
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("username", username);
